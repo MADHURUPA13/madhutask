@@ -1,0 +1,65 @@
+<div class="border1">
+<div class="border2">
+  <div class="nav1">
+    <h5>ADD USER INFORMATION</h5>
+
+  <div>
+   <form [formGroup]="addingformdata" (ngSubmit)="submitformdata()">
+     <label>Name</label>
+     <input type="text" formControlName="name" name="name">
+     <br>
+     <label>Age</label>
+     <input type="number" formControlName="age"   name="age">
+     <br>
+     <label>Gender</label> <br>
+     <label >Male</label>
+     <input type="radio" formControlName="gender"   name="gender" value="male">
+     <label >Female</label>
+     <input type="radio" formControlName="gender"  name="gender" value="female">
+ 
+      <label>Hobbies</label>
+      <div formArrayName="arr" *ngFor="let a of addingformdata.get('arr').controls; let i = index">
+        <div [formGroupName]="i" style="margin-bottom: 10px;">
+          <input type="text" formControlName="hobbies" name="hobbies"><span>  
+            <i class="fa fa-plus" style="color:black;"   aria-hidden="true" *ngIf="i==0" (click)="addItemhobbies()"></i> 
+             <i class="fa fa-minus" style="color:black;"  aria-hidden="true" *ngIf="i>0"  (click)="addItemhobbies()"></i></span>
+           
+        </div>
+      </div>
+    
+    
+   <div>
+    <div>
+      <input type="checkbox" formControlName="check" name="check" value="formdataaa"> <span>All the information are verified</span>
+     </div>
+     <button type="submit">Add</button>  
+     <button style="margin-left: 5px;" (click)="resetformdata()">Reset</button>
+   </div>
+   
+   </form>
+  </div>
+</div>
+</div>
+<div>
+<input type="text" [(ngModel)]="searchText">
+<table>
+  <thead>
+  <th>Name</th>
+  <th>Age</th>
+  <th>Gender</th>
+  <th>Hobbies</th>
+  <th>Action</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let c of arrayy | filter:searchText">
+<td>{{c.name}}</td>
+<td>{{c.age}}</td>
+<td>{{c.gender}}</td>
+
+<td><p *ngFor="let gg of c.arr">{{gg.hobbies}}</p></td>
+<td (click)="deleteRow(c)">Delete</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
